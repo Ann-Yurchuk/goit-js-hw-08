@@ -15,16 +15,16 @@ player.on('play', function() {
     });
 
 
-onPlay = throttle((data) => {
+ const onPlay = data => {
     localStorage.setItem("videoplayer-current-time", data.seconds);
-}, 1000); 
+}; 
 
 
-player.on("loaded", function () {
+player.on('loaded', function () {
         if (localStorage.getItem("videoplayer-current-time")) {
             player.setCurrentTime(localStorage.getItem("videoplayer-current-time"));
         }
     });
 
-player.on('timeupdate', onPlay);
+player.on('timeupdate', throttle(onPlay, 1000));
 
